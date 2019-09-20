@@ -33,8 +33,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemini.Web", "Gemini.Web\Ge
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gemini.Redis", "Gemini.Redis\Gemini.Redis.csproj", "{DA7E798C-9D5F-4F75-AB38-066DB54B81C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gemini.Api", "Gemini.Api\Gemini.Api.csproj", "{48CEA5C4-1586-4B5C-8C02-52AF692F3C05}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,10 +75,6 @@ Global
 		{DA7E798C-9D5F-4F75-AB38-066DB54B81C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA7E798C-9D5F-4F75-AB38-066DB54B81C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA7E798C-9D5F-4F75-AB38-066DB54B81C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{48CEA5C4-1586-4B5C-8C02-52AF692F3C05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48CEA5C4-1586-4B5C-8C02-52AF692F3C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48CEA5C4-1586-4B5C-8C02-52AF692F3C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48CEA5C4-1586-4B5C-8C02-52AF692F3C05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,7 +89,6 @@ Global
 		{C2DB5369-CCC2-4C70-B240-0B441537E750} = {34843EE1-BC41-46B1-A2B5-A71F5F1DC095}
 		{18CA2BA4-AB30-4082-A49C-C256A55B3986} = {11D78205-231A-4E7F-A78C-769A0E1E8AA7}
 		{DA7E798C-9D5F-4F75-AB38-066DB54B81C1} = {34843EE1-BC41-46B1-A2B5-A71F5F1DC095}
-		{48CEA5C4-1586-4B5C-8C02-52AF692F3C05} = {11D78205-231A-4E7F-A78C-769A0E1E8AA7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14BF909A-6574-4DBD-891C-7A3ED6904B96}
