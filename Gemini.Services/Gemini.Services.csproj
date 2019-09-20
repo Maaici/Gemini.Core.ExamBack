@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gemini.IRepositories\Gemini.IRepositories.csproj" />
+    <ProjectReference Include="..\Gemini.IServices\Gemini.IServices.csproj" />
+    <ProjectReference Include="..\Gemini.Repositories\Gemini.Repositories.csproj" />
+    <ProjectReference Include="..\Gemini.ToolBox\Gemini.ToolBox.csproj" />
+  </ItemGroup>
+
+</Project>
