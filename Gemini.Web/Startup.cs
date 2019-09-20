@@ -83,7 +83,7 @@ namespace Gemini.Web
                 app.UseDatabaseErrorPage();
                 app.UseStatusCodePages();
             }
-
+            app.UseStaticFiles();
             app.UseMvc(route =>
             {
                 route.MapRoute(

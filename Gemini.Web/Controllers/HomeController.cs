@@ -10,7 +10,7 @@ namespace Gemini.Web.Controllers
     {
         public IActionResult Index()
         {
-            ViewBag.Title = "Hello World!";
+            ViewBag.Title = "首页";
             return View();
         }
     }

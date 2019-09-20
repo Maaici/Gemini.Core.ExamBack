@@ -1,6 +1,6 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -11,6 +11,10 @@
     <title>Index</title>
 </head>
 <body>
+    <span class="layui-breadcrumb">
+        <a href="/">首页</a>
+        <a href="/demo/">@ViewBag.Title</a>
+    </span>
     <h1>@ViewBag.Title</h1>
 </body>
 </html>
