@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -73,6 +74,58 @@ namespace Gemini.ToolBox
             }
             return newpwd.ToUpper();
         }
+        #endregion
+
+        #region 参数加密解密
+
+        /// <summary>
+        /// 参数加密
+        /// </summary>
+        /// <param name="userid">当前登录人ID</param>
+        /// <param name="timespan">时间戳 可以为空</param>
+        /// <remarks>比如:6a0fa990-7cc4-400e-a74a-2bfb2e02f77e;636084091146682101</remarks>
+        /// <returns></returns>
+        public static string EncryptMOAMutipParameter(string userid, string timespan)
+        {
+            return Convert.ToBase64String(System.Text.Encoding.Unicode.GetBytes(string.Format("{0};{1}", userid, timespan)));
+        }
+
+        /// <summary>
+        /// 其他字符串加密
+        /// </summary>
+        /// <param name="paraStr"></param>
+        /// <returns></returns>
+        public static string EncryptMOAOther(string paraStr)
+        {
+            return Convert.ToBase64String(System.Text.Encoding.Unicode.GetBytes(paraStr));
+        }
+
+        /// <summary>
+        /// 参数解密 
+        /// </summary>
+        /// <param name="mutipParameter"></param>
+        /// <remarks>比如 EmpCode + ";" + timespan 按這個順序構成數組</remarks>
+        /// <returns></returns>
+        public static string[] DecryptMOAMutipParameter(string mutipParameter)
+        {
+            string[] decryptStrArr = new string[] { };
+            if (!string.IsNullOrEmpty(mutipParameter))
+            {
+                return System.Text.Encoding.Unicode.GetString(Convert.FromBase64String(mutipParameter)).Split(';').ToArray();
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 其他字符串解密
+        /// </summary>
+        /// <param name="paraStr"></param>
+        /// <returns></returns>
+        public static string DecryptMOAOther(string paraStr)
+        {
+            return System.Text.Encoding.Unicode.GetString(Convert.FromBase64String(paraStr));
+        }
+
         #endregion
 
         #region 短信

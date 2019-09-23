@@ -11,5 +11,7 @@ namespace Gemini.Models
             : base(options)
         {
         }
+
+        public DbSet<Sys_User> sys_Users  { get; set; }
     }
 }

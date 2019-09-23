@@ -23,7 +23,7 @@ namespace Gemini.Web
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
                 .CreateLogger();
-
+            
             CreateWebHostBuilder(args).Build().Run();
         }
 

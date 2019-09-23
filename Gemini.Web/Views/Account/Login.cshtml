@@ -1,0 +1,124 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>考务后台-登陆</title>
+    <link href="/layui/css/layui.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #e7e7e7;
+        }
+
+        /*input:-webkit-autofill {
+            -webkit-box-shadow: inset 0 0 0 1000px #fff;
+            background-color: transparent;
+        }*/
+
+        .admin-login-background {
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            left: 50%;
+            top: 30%;
+            margin-left: -150px;
+            margin-top: -100px;
+        }
+
+        .admin-header {
+            margin-top: -100px;
+            margin-bottom: 20px;
+        }
+
+        .admin-logo {
+            width: 280px;
+        }
+
+        .admin-input {
+            border-top-style: none;
+            border-right-style: solid;
+            border-bottom-style: solid;
+            border-left-style: solid;
+            height: 50px;
+            width: 300px;
+            padding-bottom: 0px;
+        }
+
+        .admin-button {
+            margin-top: 15px;
+            width: 300px;
+            height: 45px;
+            background-color: #009688;
+        }
+
+        .admin-icon {
+            margin-left: 260px;
+            margin-top: 10px;
+            font-size: 30px;
+        }
+
+        i {
+            position: absolute;
+        }
+
+        .admin-captcha {
+            position: absolute;
+            margin-left: 205px;
+            margin-top: -40px;
+        }
+    </style>
+    @*<link rel="stylesheet" href="css/admin.css">*@
+</head>
+<body style="background-image: url('/images/login_bg.jpg');">
+    <div id="container">
+        <div></div>
+        <div class="admin-login-background">
+            <!--<div class="admin-header">-->
+            <!--<img src="image/ex_logo.png" class="admin-logo">-->
+            <!--</div>-->
+            <form class="layui-form" action="" method="post">
+                <div class="layui-logo" style="text-align:center;color:white"><h1>考务后台管理系统</h1></div>
+                <br>
+                <div>
+                    <i class="layui-icon layui-icon-username admin-icon admin-icon-username"></i>
+                    <input type="text" name="username" placeholder="请输入用户名"
+                           autocomplete="off"
+                           class="layui-input admin-input ">
+                </div>
+                <div>
+                    <i class="layui-icon layui-icon-password admin-icon admin-icon-password"></i>
+                    <input type="password" name="password"
+                           placeholder="请输入密码"
+                           autocomplete="off"
+                           class="layui-input admin-input">
+                </div>
+                <div>
+                    <input type="text" name="verify"
+                           placeholder="请输入验证码"
+                           autocomplete="off"
+                           class="layui-input admin-input">
+                    <img class="admin-captcha" src=""
+                         onclick="updateVerify()">
+                </div>
+                <a href="/Account/Register" style="margin-top:5px;margin-right:5px;float:right;color:#14b626">注册账号</a>
+                <button class="layui-btn admin-button" lay-submit lay-filter="formDemo">登陆</button>
+
+
+            </form>
+        </div>
+    </div>
+    <script src="/layui/layui.js"></script>
+    <script>
+        //var $ = layui.jquery;
+        //$(function () {
+        //    console.log(123132);
+        //});
+        function updateVerify() {
+
+        }
+    </script>
+</body>
+</html>

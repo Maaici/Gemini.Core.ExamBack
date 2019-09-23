@@ -1,0 +1,103 @@
+﻿@model Gemini.ViewModels.RegisterViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>考务后台-注册</title>
+    <link href="/layui/css/layui.css" rel="stylesheet" />
+    <style>
+        body {
+            background-image: url('/images/login_bg.jpg');
+        }
+
+        .admin-login-background {
+            width: 300px;
+            height: 460px;
+            position: absolute;
+            padding: 10px;
+            left: 50%;
+            top: 30%;
+            margin-left: -150px;
+            margin-top: -100px;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" class="admin-login-background">
+        <div class="layui-logo" style="text-align:center"><h1>用户注册</h1></div>
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
+                @Html.TextBoxFor(m => m.UserName, new { @class = "layui-input", lay_verify = "required:", placeholder = "用户名" })
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+                @Html.PasswordFor(m => m.Password, new { @class = "layui-input", lay_verify = "required|pass", placeholder = "密码" })
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+                @Html.PasswordFor(m => m.ConfirmPass, new { @class = "layui-input", lay_verify = "required|confirmPass", placeholder = "确认密码" })
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-friends" for="LAY-user-login-haoyouqingqiu"></label>
+                @Html.TextBoxFor(m => m.RealName, new { @class = "layui-input", lay_verify = "required", placeholder = "真实姓名" })
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-file-b" for="LAY-user-login-username"></label>
+                @Html.TextBoxFor(m => m.Mobile, new { @class = "layui-input", lay_verify = "phone", placeholder = "手机号码" })
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="btnRegister">注 册</button>
+            </div>
+        </div>
+        <a href="/Account/Login" style="margin-right:5px;float:right;color:#14b626">使用已有帐号登陆</a>
+    </div>
+    <script src="/layui/layui.js"></script>
+    <script src="~/js/GeminiCommon.js"></script>
+    <script>
+        layui.use(['form', 'layedit', 'laydate'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate
+                , $ = layui.jquery;
+            //自定义验证规则
+            form.verify({
+                userName: [
+                    /^[\S]{6}$/
+                    , '用户名至少包含6个字符，且不能出现空格'
+                ]
+                , pass: [
+                    /^[\S]{6,12}$/
+                    , '密码必须6到12位，且不能出现空格'
+                ]
+            });
+
+            //监听提交
+            form.on('submit(btnRegister)', function (data) {
+                var params = data.field;
+                if (params.Password != params.ConfirmPass)
+                    layer.alert("两次输入的密码不一样！");
+                submit($, params);
+            });
+        });
+
+        function submit($, params) {
+            //开启遮罩
+            var i = GeminiCommon.loading();
+            $.post("/Account/Register", { params }, function () {
+                //关闭遮罩
+                GeminiCommon.loadComplete(i);
+
+            });
+            layer.msg("结束");
+        }
+
+    </script>
+</body>
+</html>

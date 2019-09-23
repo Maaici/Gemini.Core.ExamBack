@@ -10,6 +10,7 @@ using Gemini.Redis;
 using Gemini.Repositories;
 using Gemini.Services;
 using Gemini.Web.Profiles;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,10 +33,13 @@ namespace Gemini.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2); ;
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.AddDbContext<MyDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("Test_ExamAffair"));
+                //options.UseSqlServer(Configuration.GetConnectionString("Test_ExamAffair"));
+                //sqlite用于前期开发，后面会迁移到sqlserver
+                options.UseSqlite(Configuration.GetConnectionString("Sqlite_Test"));
             });
 
             services.AddSingleton<ICache>(new RedisOperator(Configuration.GetConnectionString("Redis_Conn")));
@@ -61,7 +65,7 @@ namespace Gemini.Web
             builder.RegisterAssemblyTypes(typeof(UnitOfWork).Assembly)
                 .Where(t => t.Name.EndsWith("Repository") || t.Name == "UnitOfWork")
                 .AsImplementedInterfaces();
-            builder.RegisterAssemblyTypes(typeof(ExamineeService).Assembly)
+            builder.RegisterAssemblyTypes(typeof(AccountService).Assembly)
                  .Where(t => t.Name.EndsWith("Service"))
                  .AsImplementedInterfaces();
             //新模块组件注册
@@ -84,6 +88,7 @@ namespace Gemini.Web
                 app.UseStatusCodePages();
             }
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseMvc(route =>
             {
                 route.MapRoute(
