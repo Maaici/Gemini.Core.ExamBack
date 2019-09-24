@@ -29,6 +29,7 @@ namespace Gemini.Web
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://*:5000")
                 .UseSerilog()
                 .UseStartup<Startup>();
     }

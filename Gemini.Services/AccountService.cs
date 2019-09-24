@@ -63,6 +63,8 @@ namespace Gemini.Services
                 {
                     if (user.Password == Common.ConvertToMD5(pass))
                     {
+                        //将此用户缓存到redis
+                        CacheHelper.Set(user.Id.ToString(), user);
                         return new CommonResponse { Success = true, RetMsg = "登陆成功！" ,Data = user};
                     }
                     else

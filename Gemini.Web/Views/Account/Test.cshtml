@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>wangEditor demo</title>
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body>
+    <button type="button" class="layui-btn" id="btn" style="margin:20px"><i class="layui-icon"></i>上传文件</button>
+    <div style="padding:20px">
+        <div id="editor">
+            <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+        </div>
+    </div>
+
+
+    <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
+    <script type="text/javascript" src="//unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+    <script src="~/layui/layui.js"></script>
+    <script type="text/javascript">
+        var E = window.wangEditor
+        var editor = new E('#editor')
+        // 或者 var editor = new E( document.getElementById('editor') )
+        editor.create()
+
+        function InputWord() {
+            alert(123123);
+        }
+
+        layui.use('upload', function () {
+            var upload = layui.upload;
+            upload.render({
+                elem: '#btn'
+                , url: '/Account/WordUpload'
+                , accept: 'file' //普通文件
+                , done: function (res) {
+                    console.log(res)
+                }
+            });
+        });
+          //指定允许上传的文件类型
+
+    </script>
+</body>
+</html>
