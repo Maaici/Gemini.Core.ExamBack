@@ -59,7 +59,7 @@ namespace Gemini.Web.Controllers
             }
             else
             {
-                var currentUser = CacheHelper.Get<Sys_User>(id.ToString());
+                var currentUser = Redis.RedisHelper.Default.Get<Sys_User>(id.ToString());
                 if (currentUser != null)
                 {
                     return currentUser;

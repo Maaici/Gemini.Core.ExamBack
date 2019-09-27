@@ -1,6 +1,7 @@
 ﻿using Gemini.IRepositories;
 using Gemini.IServices;
 using Gemini.Models;
+using Gemini.Redis;
 using Gemini.ToolBox;
 using Gemini.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -64,7 +65,7 @@ namespace Gemini.Services
                     if (user.Password == Common.ConvertToMD5(pass))
                     {
                         //将此用户缓存到redis
-                        CacheHelper.Set(user.Id.ToString(), user);
+                        RedisHelper.Default.Insert(user.Id.ToString(), user);
                         return new CommonResponse { Success = true, RetMsg = "登陆成功！" ,Data = user};
                     }
                     else

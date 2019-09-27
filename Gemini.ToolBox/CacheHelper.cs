@@ -46,7 +46,6 @@ namespace Gemini.ToolBox
             object val = null;
             if (key != null && cache.TryGetValue(key, out val))
             {
-
                 return val;
             }
             else
