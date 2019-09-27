@@ -31,7 +31,7 @@ namespace Gemini.Repositories
                 return repositories[type] as IRepository<T>;
             }
             var repositoryType = typeof(Repository<>);
-            repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), _context, this));
+            repositories.Add(type, Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), _context));
             
             return repositories[type] as IRepository<T>;
         }

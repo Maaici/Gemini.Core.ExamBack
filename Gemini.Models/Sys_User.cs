@@ -11,9 +11,9 @@ namespace Gemini.Models
         public string Mobile { get; set; }
         public string RealName { get; set; }
         public string Remark { get; set; }
-        public DateTime CreateTime { get; set; }
+        public DateTime? CreateTime { get; set; }
         public string CreateUser { get; set; }
-        public DateTime EditTime { get; set; }
+        public DateTime? EditTime { get; set; }
         public string EditUser { get; set; }
     }
 }

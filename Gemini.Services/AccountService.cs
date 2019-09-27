@@ -36,9 +36,8 @@ namespace Gemini.Services
                 user.Password = Common.ConvertToMD5(model.Password);
                 user.Mobile = model.Mobile;
                 user.RealName = model.RealName;
-
                 user.CreateTime = DateTime.Now;
-                //user.CreateUser = CurrentUser().UserName;
+                //user.CreateUser = CurrentUser.UserName;
 
                 _unitOfWork.Repository<Sys_User>().Add(user);
                 _unitOfWork.SaveChanges();
@@ -65,7 +64,7 @@ namespace Gemini.Services
                     if (user.Password == Common.ConvertToMD5(pass))
                     {
                         //将此用户缓存到redis
-                        RedisHelper.Default.Insert(user.Id.ToString(), user);
+                        //RedisHelper.Default.Insert(user.Id.ToString(), user);
                         return new CommonResponse { Success = true, RetMsg = "登陆成功！" ,Data = user};
                     }
                     else

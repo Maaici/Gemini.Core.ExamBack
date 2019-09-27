@@ -63,8 +63,6 @@
         layui.use(['form', 'layedit', 'laydate'], function () {
             var form = layui.form
                 , layer = layui.layer
-                , layedit = layui.layedit
-                , laydate = layui.laydate
                 , $ = layui.jquery;
             //自定义验证规则
             form.verify({
@@ -81,6 +79,7 @@
             //监听提交
             form.on('submit(btnRegister)', function (data) {
                 var params = data.field;
+                console.log(params);
                 if (params.Password != params.ConfirmPass)
                     layer.alert("两次输入的密码不一样！");
                 submit($, params);
@@ -90,12 +89,27 @@
         function submit($, params) {
             //开启遮罩
             var i = GeminiCommon.loading();
-            $.post("/Account/Register", { params }, function () {
+            $.post("/Account/Register", params , function (data) {
                 //关闭遮罩
                 GeminiCommon.loadComplete(i);
-
+                if (data.Success) {
+                    layer.msg(data.RetMsg + ",即将为您跳转到登陆页面。");
+                    //2秒后跳转
+                    setTimeout("window.location.href ='/Account/Login'", 2000);
+                } else {
+                    layer.open({
+                        type: 1
+                        , offset: 'auto' 
+                        , content: '<div style="padding: 20px 100px;">' + data.RetMsg + '</div>'
+                        , btn: '关闭'
+                        , btnAlign: 'c' //按钮居中
+                        , shade: 0 //不显示遮罩
+                        , yes: function () {
+                            layer.closeAll();
+                        }
+                    });
+                }
             });
-            layer.msg("结束");
         }
 
     </script>

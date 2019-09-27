@@ -82,7 +82,7 @@ namespace Gemini.Web.Controllers
             }
             else
             {
-                return Json(AlertValifyError());
+                return AlertValifyError();
             }
         }
 
