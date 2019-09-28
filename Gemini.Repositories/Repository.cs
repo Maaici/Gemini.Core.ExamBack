@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Gemini.Repositories
 {
@@ -44,14 +45,14 @@ namespace Gemini.Repositories
             return _dbSet.Find(id);
         }
 
-        public IEnumerable<T> GetAll(Func<T, bool> predicate = null)
+        public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate = null)
         {
             if (predicate != null)
             {
                 return _dbSet.Where(predicate);
             }
 
-            return _dbSet.AsEnumerable();
+            return _dbSet.AsQueryable();
         }
 
         public void Update(T entity)

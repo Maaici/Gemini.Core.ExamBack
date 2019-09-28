@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29009.5
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1、Application", "1、Application", "{11D78205-231A-4E7F-A78C-769A0E1E8AA7}"
 EndProject
@@ -29,9 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gemini.ViewModels", "Gemini
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gemini.ToolBox", "Gemini.ToolBox\Gemini.ToolBox.csproj", "{C2DB5369-CCC2-4C70-B240-0B441537E750}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemini.Web", "Gemini.Web\Gemini.Web.csproj", "{18CA2BA4-AB30-4082-A49C-C256A55B3986}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gemini.Web", "Gemini.Web\Gemini.Web.csproj", "{18CA2BA4-AB30-4082-A49C-C256A55B3986}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gemini.Redis", "Gemini.Redis\Gemini.Redis.csproj", "{DA7E798C-9D5F-4F75-AB38-066DB54B81C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemini.Extensions", "Gemini.Extensions\Gemini.Extensions.csproj", "{A1CD7F73-A053-4F0E-89EA-742A77651830}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{DA7E798C-9D5F-4F75-AB38-066DB54B81C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA7E798C-9D5F-4F75-AB38-066DB54B81C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA7E798C-9D5F-4F75-AB38-066DB54B81C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1CD7F73-A053-4F0E-89EA-742A77651830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1CD7F73-A053-4F0E-89EA-742A77651830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1CD7F73-A053-4F0E-89EA-742A77651830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1CD7F73-A053-4F0E-89EA-742A77651830}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{C2DB5369-CCC2-4C70-B240-0B441537E750} = {34843EE1-BC41-46B1-A2B5-A71F5F1DC095}
 		{18CA2BA4-AB30-4082-A49C-C256A55B3986} = {11D78205-231A-4E7F-A78C-769A0E1E8AA7}
 		{DA7E798C-9D5F-4F75-AB38-066DB54B81C1} = {34843EE1-BC41-46B1-A2B5-A71F5F1DC095}
+		{A1CD7F73-A053-4F0E-89EA-742A77651830} = {34843EE1-BC41-46B1-A2B5-A71F5F1DC095}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14BF909A-6574-4DBD-891C-7A3ED6904B96}

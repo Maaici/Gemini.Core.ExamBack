@@ -8,6 +8,7 @@ using Gemini.ToolBox;
 using Gemini.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Gemini.Web.Controllers
 {
@@ -98,8 +99,9 @@ namespace Gemini.Web.Controllers
             if (ret.Success)
             {
                 //状态保持
-                string useId = Common.EncryptMOAMutipParameter(ret.Data.Id, null);
-                HttpContext.Response.Cookies.Append("AccessKey", useId, new CookieOptions { Expires = DateTime.Now.AddMinutes(10) });
+                string token = Common.EncryptMOAMutipParameter(ret.Data.UserName, null);
+                HttpContext.Response.Cookies.Append("AccessKey", token, new CookieOptions { Expires = DateTime.Now.AddMinutes(30) });
+                HttpContext.Session.SetString((string)ret.Data.UserName, (string)JsonConvert.SerializeObject(ret.Data));
             }
             return Json(ret);
         }

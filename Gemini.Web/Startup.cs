@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
@@ -13,7 +11,6 @@ using Gemini.Web.Profiles;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -45,7 +42,7 @@ namespace Gemini.Web
                 //sqlite用于前期开发，后面会迁移到sqlserver
                 options.UseSqlite(Configuration.GetConnectionString("Sqlite_Test"));
             });
-
+            services.AddSession();
             services.AddSingleton<ICache>(new RedisOperator(Configuration.GetConnectionString("Redis_Conn")));
 
             #region 配置AutoMapper
@@ -91,8 +88,11 @@ namespace Gemini.Web
                 app.UseDatabaseErrorPage();
                 app.UseStatusCodePages();
             }
+            app.UseExceptionHandler("/Home/Error");
+
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseSession();
             app.UseMvc(route =>
             {
                 route.MapRoute(

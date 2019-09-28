@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Gemini.IRepositories
 {
@@ -17,7 +19,7 @@ namespace Gemini.IRepositories
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        IEnumerable<T> GetAll(Func<T, bool> predicate = null);
+        IQueryable<T> GetAll(Expression<Func<T, bool>> predicate = null);
 
         /// <summary>
         /// 添加一条数据

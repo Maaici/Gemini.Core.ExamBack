@@ -3,42 +3,20 @@ using System;
 using Gemini.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gemini.Models.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190928085747_updateRole")]
+    partial class updateRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
-
-            modelBuilder.Entity("Gemini.Models.Sys_Action", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ActionName");
-
-                    b.Property<DateTime?>("CreateTime");
-
-                    b.Property<string>("Description");
-
-                    b.Property<int>("Enabled");
-
-                    b.Property<int>("MenuId");
-
-                    b.Property<string>("Remark");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MenuId");
-
-                    b.ToTable("Sys_Action");
-                });
 
             modelBuilder.Entity("Gemini.Models.Sys_Menu", b =>
                 {
@@ -144,14 +122,6 @@ namespace Gemini.Models.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("sys_UserRoles");
-                });
-
-            modelBuilder.Entity("Gemini.Models.Sys_Action", b =>
-                {
-                    b.HasOne("Gemini.Models.Sys_Menu", "Menu")
-                        .WithMany("Actions")
-                        .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Gemini.Models.Sys_RoleMenu", b =>

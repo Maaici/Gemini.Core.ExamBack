@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = "/Views/Shared/_layout.cshtml";
+}
+<div style="text-align:center ;padding:10px">
+    <div style="margin:50px"></div>
+    <i class="layui-icon layui-icon-face-surprised" style="font-size: 300px; color:firebrick"></i>
+    <hr class="layui-bg-gray" style="height:8px;margin-bottom:50px;margin-left:200px;margin-right:200px">
+    <div class="layui-text" style="font-size: 40px;">
+        遇到了一个错误&nbsp;<label style="color:red" id="sec">10</label>&nbsp;秒后跳转到&nbsp;<a href="/Home/Index">首页</a>
+    </div>
+</div>
+<script>
+    layui.use('element', function () {
+        var element = layui.element, $ = layui.jquery;
+        var sec = 9;
+        $(function () {
+            setInterval(setValue, 1000);
+        });
+
+        function setValue() {
+            if (sec >= 0) {
+                $('#sec').html(sec--);
+            } else {
+                window.location.href = "/Home/Index";
+            }
+        }
+    });
+</script>

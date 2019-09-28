@@ -2,9 +2,11 @@
 using Gemini.Models;
 using Gemini.ToolBox;
 using Gemini.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
 
 namespace Gemini.Web.Controllers
 {
@@ -12,8 +14,10 @@ namespace Gemini.Web.Controllers
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (CurrentController != "Account" && CurrentUser() == null) {
-                RedirectToAction("Login", "Account");
+            if (CurrentController != "Account" && CurrentUser == null)
+            {
+                context.Result = RedirectToAction("Login", "Account");
+                return;
             }
             base.OnActionExecuting(context);
         }
@@ -52,35 +56,45 @@ namespace Gemini.Web.Controllers
             }
         }
 
-        public Sys_User CurrentUser() {
-            var id = CurrentUserId();
-            if (id == 0) {
-                return null;
-            }
-            else
+        public Sys_User CurrentUser
+        {
+            get
             {
-                var currentUser = Redis.RedisHelper.Default.Get<Sys_User>(id.ToString());
-                if (currentUser != null)
+                var userId = HttpContext.Request.Cookies["AccessKey"];
+                if (string.IsNullOrWhiteSpace(userId))
                 {
-                    return currentUser;
-                }
-                else {
                     return null;
+                }
+                var idStr = Common.DecryptMOAMutipParameter(userId);
+                if (string.IsNullOrWhiteSpace(idStr?[0]))
+                {
+                    return null;
+                }
+                else
+                {
+                    var userStr = HttpContext.Session.GetString(idStr?[0]);
+                    if (string.IsNullOrWhiteSpace(userStr))
+                    {
+                        return null;
+                    }
+                    var user = JsonConvert.DeserializeObject<Sys_User>(userStr);
+                    return user;
                 }
             }
         }
 
-        public int CurrentUserId()
+        public int CurrentUserId
         {
-            int id;
-            var userId = HttpContext.Request.Cookies["AccessKey"];
-            var idStr = Common.DecryptMOAMutipParameter(userId);
-            if (int.TryParse(idStr[0], out id))
+            get
             {
-                return id;
-            }
-            else {
-                return 0;
+                if (CurrentUser == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return CurrentUser.Id;
+                }
             }
         }
 
@@ -106,7 +120,7 @@ namespace Gemini.Web.Controllers
                 }
             }
 
-            return Json(new CommonResponse{ Success = false, RetMsg = errors });
+            return Json(new CommonResponse { Success = false, RetMsg = errors });
         }
     }
 }
