@@ -79,7 +79,7 @@
             <!--<div class="admin-header">-->
             <!--<img src="image/ex_logo.png" class="admin-logo">-->
             <!--</div>-->
-            <form class="layui-form" action="" method="post">
+            <div class="layui-form">
                 <div class="layui-logo" style="text-align:center;color:white"><h1>考务后台管理系统</h1></div>
                 <br>
                 <div>
@@ -104,18 +104,50 @@
                          onclick="updateVerify()">
                 </div>
                 <a href="/Account/Register" style="margin-top:5px;margin-right:5px;float:right;color:#14b626">注册账号</a>
-                <button class="layui-btn admin-button" lay-submit lay-filter="formDemo">登陆</button>
+                <button class="layui-btn admin-button" lay-submit lay-filter="BtnLogin">登陆</button>
 
-
-            </form>
+            </div>
         </div>
     </div>
     <script src="/layui/layui.js"></script>
+    <script src="~/js/GeminiCommon.js"></script>
     <script>
-        //var $ = layui.jquery;
-        //$(function () {
-        //    console.log(123132);
-        //});
+        layui.use(['form', 'layedit', 'laydate'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , $ = layui.jquery;
+            //监听提交
+            form.on('submit(BtnLogin)', function (data) {
+                var params = data.field;
+                submit($, params);
+            });
+        });
+
+        function submit($, params) {
+            //开启遮罩
+            var i = GeminiCommon.loading();
+            $.post("/Account/Login", params, function (data) {
+                //关闭遮罩
+                GeminiCommon.loadComplete(i);
+                console.log(data);
+                if (data.Success) {
+                    layer.msg(data.RetMsg);
+                    setTimeout("window.location.href ='/Home/Index'", 1000);
+                } else {
+                    layer.open({
+                        type: 1
+                        , offset: 'auto'
+                        , content: '<div style="padding: 20px 100px;">' + data.RetMsg + '</div>'
+                        , btn: '关闭'
+                        , btnAlign: 'c' //按钮居中
+                        , shade: 0 //不显示遮罩
+                        , yes: function () {
+                            layer.closeAll();
+                        }
+                    });
+                }
+            });
+        }
         function updateVerify() {
 
         }
