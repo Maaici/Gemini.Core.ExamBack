@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Gemini.IServices;
+using Gemini.Models;
 using Gemini.ToolBox;
 using Gemini.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -15,10 +14,12 @@ namespace Gemini.Web.Controllers
     public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;
+        private readonly IMapper _mapper;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService,IMapper mapper)
         {
             _accountService = accountService;
+            _mapper = mapper;
         }
         public IActionResult Login()
         {
@@ -98,10 +99,13 @@ namespace Gemini.Web.Controllers
             var ret = _accountService.Login(model.UserName, model.Password);
             if (ret.Success)
             {
+                var user = ret.Data as Sys_User;
+                var viewModel = _mapper.Map<UserRetViewModel>(user);
                 //状态保持
-                string token = Common.EncryptMOAMutipParameter(ret.Data.UserName, null);
+                string token = Common.EncryptMOAMutipParameter(user.UserName, null);
                 HttpContext.Response.Cookies.Append("AccessKey", token, new CookieOptions { Expires = DateTime.Now.AddMinutes(30) });
-                HttpContext.Session.SetString((string)ret.Data.UserName, (string)JsonConvert.SerializeObject(ret.Data));
+                HttpContext.Response.Cookies.Append("UserInfo", JsonConvert.SerializeObject(viewModel), new CookieOptions { Expires = DateTime.Now.AddMinutes(30) });
+                HttpContext.Session.SetString(viewModel.UserName, (string)JsonConvert.SerializeObject(ret.Data));
             }
             return Json(ret);
         }

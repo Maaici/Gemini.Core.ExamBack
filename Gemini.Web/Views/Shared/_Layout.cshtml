@@ -17,14 +17,14 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">
                         <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                        贤心
+                        <lable id="name">请登录</lable>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="/Account/CurrentUser">基本资料</a></dd>
                         <dd><a href="">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">退了</a></li>
+                <li class="layui-nav-item"><a onclick="logOff()">退了</a></li>
             </ul>
         </div>
         <!-- 侧边菜单 -->
@@ -66,42 +66,17 @@
                             <cite>应用</cite>
                         </a>
                     </li>
-                    <li data-name="user" class="layui-nav-item">
-                        <a href="javascript:;" lay-tips="用户" lay-direction="2">
-                            <i class="layui-icon layui-icon-user"></i>
-                            <cite>用户</cite>
-                        </a>
-                        <dl class="layui-nav-child">
-                            <dd>
-                                <a lay-href="user/user/list.html">网站用户</a>
-                            </dd>
-                            <dd>
-                                <a lay-href="user/administrators/list.html">后台管理员</a>
-                            </dd>
-                            <dd>
-                                <a lay-href="user/administrators/role.html">角色管理</a>
-                            </dd>
-                        </dl>
-                    </li>
                     <li data-name="set" class="layui-nav-item">
                         <a href="javascript:;" lay-tips="设置" lay-direction="2">
                             <i class="layui-icon layui-icon-set"></i>
-                            <cite>设置</cite>
+                            <cite>系统设置</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd class="layui-nav-itemed">
-                                <a href="javascript:;">系统设置</a>
-                                <dl class="layui-nav-child">
-                                    <dd><a lay-href="set/system/website.html">网站设置</a></dd>
-                                    <dd><a lay-href="set/system/email.html">邮件服务</a></dd>
-                                </dl>
+                            <dd>
+                                <a href="/User/Index">&emsp;用户管理</a>
                             </dd>
-                            <dd class="layui-nav-itemed">
-                                <a href="javascript:;">我的设置</a>
-                                <dl class="layui-nav-child">
-                                    <dd><a lay-href="set/user/info.html">基本资料</a></dd>
-                                    <dd><a lay-href="set/user/password.html">修改密码</a></dd>
-                                </dl>
+                            <dd>
+                                <a lay-href="set/system/email.html">&emsp;邮件服务</a>
                             </dd>
                         </dl>
                     </li>
@@ -115,6 +90,7 @@
             </div>
         </div>
         <script src="~/layui/layui.js"></script>
+        <script src="~/js/jquery.cookie.js"></script>
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <div style="padding: 15px;">
@@ -124,15 +100,41 @@
 
         <div class="layui-footer">
             <!-- 底部固定区域 -->
-            © layui.com - 底部固定区域
+            © Design by Maaici  2019
         </div>
     </div>
-    
+
     <script>
         //JavaScript代码区域
+        var $;
         layui.use('element', function () {
-            var element = layui.element;
+            var element = layui.element,
+                jquery = layui.jquery;
+            $ = layui.jquery_cookie(jquery);
+            $(function () {
+                //设置登陆人信息
+                setUserInfo();
+            });
         });
+
+        //设置界面右上角的用户信息
+        function setUserInfo() {
+            var jsonStr = $.cookie("UserInfo");
+            var userinfo = $.parseJSON(jsonStr);
+            console.log(userinfo.RealName);
+            var name = userinfo.RealName;
+            if (name == null || name == "") {
+                $("#name").html(userinfo.UserName);
+            }else {
+                $("#name").html(name);
+            }
+        }
+
+        //登出
+        function logOff() {
+            $.cookie("AccessKey", null, { path: '/' });
+            location.reload();
+        }
     </script>
 </body>
 </html>

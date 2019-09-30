@@ -9,20 +9,20 @@ namespace Gemini.ViewModels.paging
         /// <summary>
         /// 状态码
         /// </summary>
-        public bool Success;
+        public int code;
         /// <summary>
         /// 操作消息
         /// </summary>
-        public string RetMsg;
+        public string msg;
 
         /// <summary>
         /// 总记录条数
         /// </summary>
-        public int Count;
+        public int count;
 
         /// <summary>
         /// 数据内容
         /// </summary>
-        public dynamic Data;
+        public dynamic data;
     }
 }

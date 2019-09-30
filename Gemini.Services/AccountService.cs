@@ -1,7 +1,6 @@
 ﻿using Gemini.IRepositories;
 using Gemini.IServices;
 using Gemini.Models;
-using Gemini.Redis;
 using Gemini.ToolBox;
 using Gemini.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -63,6 +62,9 @@ namespace Gemini.Services
                 {
                     if (user.Password == Common.ConvertToMD5(pass))
                     {
+                        if (user.Enabled == 0) {
+                            return new CommonResponse { Success = false, RetMsg = "该账号已被禁用！请联系管理员启用。" };
+                        }
                         //将此用户缓存到redis
                         //RedisHelper.Default.Insert(user.Id.ToString(), user);
                         return new CommonResponse { Success = true, RetMsg = "登陆成功！" ,Data = user};

@@ -1,0 +1,104 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<span class="layui-breadcrumb">
+    <a href="/">首页</a>
+    <a href="">@ViewBag.Title</a>
+</span>
+<div style="height:10px"></div>
+<div class="layui-input-inline">
+    <input type="text" id="searchVal" autocomplete="off" placeholder="用户名/姓名/电话" class="layui-input">
+</div>
+<button class="layui-btn" onclick="serchbByVal()" data-type="search"><i class="layui-icon">&#xe615;</i>查询</button>
+
+<table class="layui-hide" id="tableList" lay-filter="table1"></table>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">修改</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">分配权限</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">禁用</a>
+</script>
+
+<script>
+    var $;
+    layui.use(['table', 'form'], function () {
+        var table = layui.table,
+            $ = layui.jquery;
+        //页面列表绑定事件
+        table.render({
+            elem: '#tableList',//被绑定table对象的id
+            url: '/User/GetUserWithPage?num=' + getRandomNumberByRange(0, 9999), //数据接口
+            even: true, //开启隔行背景
+            page: true, //开启分页,
+            limit: 10, //默认采用10,
+            loading: true,
+            cols: [[ //表头
+                //{ type: 'radio', fixed: 'left' },
+                { field: 'Id', width: 60, title: 'ID' },
+                { field: 'UserName', title: '账号', width: 120 },
+                { field: 'RealName', title: '姓名', width: 120, sort: true },
+                { field: 'Mobile', title: '手机', width: 120 },
+                { field: 'Email', title: '邮箱', width: 150 },
+                { field: 'CreateTime', title: '注册时间', sort: true, width: 150 },
+                { field: 'Enabled', title: '状态', width: 80, sort: true },
+                { field: 'Remark', title: '备注', width: 150 },//, fixed: 'right'
+                { fixed: 'right', title: '操作', width: 190, align: 'center', toolbar: '#barDemo' }
+            ]],
+            done: function (res, curr, count) {// 表格渲染完成之后的回调
+                $(".layui-table th").css("color", "#fff");// 设定表格标题字体颜色
+                $(".layui-table th").css("background-color", "#1AA094");// 设定表格标题背景色
+
+                //表格行双击事件
+                $('.layui-table').delegate('tr', 'dblclick', function () {
+                    $(this).find("a[lay-event=edit]").click();
+                });
+            }
+        });
+        //查询(查询按钮事件)
+        var serchbByVal = function () {
+            var searchVal = $("#searchVal").val();
+            var config = { "searchVal": searchVal }
+            table.reload('table1', {//reload重新绑定列表数据
+                where: config//where是查询条件
+            });
+        }
+        //监听工具条
+        table.on('tool(table1)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                layer.msg('ID：' + data.id + ' 的查看操作');
+            } else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                layer.alert('编辑行：<br>' + JSON.stringify(data))
+            }
+        });
+
+        //var $ = layui.$, active = {
+        //    getCheckData: function () { //获取选中数据
+        //        var checkStatus = table.checkStatus('idTest')
+        //            , data = checkStatus.data;
+        //        layer.alert(JSON.stringify(data));
+        //    }
+        //    , getCheckLength: function () { //获取选中数目
+        //        var checkStatus = table.checkStatus('idTest')
+        //            , data = checkStatus.data;
+        //        layer.msg('选中了：' + data.length + ' 个');
+        //    }
+        //    , isAll: function () { //验证是否全选
+        //        var checkStatus = table.checkStatus('idTest');
+        //        layer.msg(checkStatus.isAll ? '全选' : '未全选')
+        //    }
+        //};
+
+    });
+    //生成指定范围的随机数
+    function getRandomNumberByRange(start, end) {
+        return Math.floor(Math.random() * (end - start) + start)
+    }
+
+</script>

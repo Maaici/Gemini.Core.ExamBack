@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Gemini.Models;
+using Gemini.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +19,8 @@ namespace Gemini.Web.Profiles
         public MappingProfile()
         {
             //将你需要进行映射的类型写在这边
-            //CreateMap<User, UserDto>();
-            //CreateMap<UserDto, User>();
+            CreateMap<Sys_User, UserRetViewModel>();
+            CreateMap<UserRetViewModel, Sys_User>();
         }
     }
 }

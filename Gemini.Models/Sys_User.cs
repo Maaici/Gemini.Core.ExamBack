@@ -22,6 +22,11 @@ namespace Gemini.Models
 
         public string RealName { get; set; }
 
+        /// <summary>
+        /// 1表示启用，0或其他表示停用
+        /// </summary>
+        public int Enabled { get; set; }
+
         public string Remark { get; set; }
 
         public DateTime? CreateTime { get; set; }
